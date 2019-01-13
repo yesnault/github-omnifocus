@@ -142,7 +142,7 @@ def sync_issue_in_of (ghclient, omnifocus)
 			end
 		end
 
-		if task.flagged.get && issue.assignee.login.downcase != $opts[:username].downcase
+		if task.flagged.get && (!issue.assignee || issue.assignee.login.downcase != $opts[:username].downcase)
 			puts "task flagged unassigned me #{issue.number}"
 			task.flagged.set false
 		elsif !task.flagged.get && issue.assignee && issue.assignee.login.downcase == $opts[:username].downcase
